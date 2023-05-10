@@ -1,8 +1,11 @@
+import { Navbar } from "../../components/navbar";
 import { Container } from "./styles";
 
 const Books = () => {
   return (
-    <Container>books</Container>
+    <Container>
+      <Navbar />
+    </Container>
   );
 };
 
