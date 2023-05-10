@@ -10,7 +10,6 @@ export const Container = styled.section`
   justify-content: center;
   align-items: center;
   padding: 60px 0;
-  border: 1px solid red;
 
   @media (max-width: 768px) {
     height: 100%;

@@ -4,8 +4,28 @@ import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Typography } from '@mui/material';
 import { Card } from '../card';
+import { CardContainer } from './styles';
 
-const HorizontalTabs = () => {
+interface IData {
+  data: Array<{
+      id: number;
+      img: string;
+      name: string;
+      author: string;
+      price: number;
+      gender: string;
+      sale: boolean;
+  }>;
+};
+
+const HorizontalTabs = ({ data }: IData) => {
+  const adventureBooks = data.filter((book) => book.gender === "adventure");
+  const biographyBooks = data.filter((book) => book.gender === "biography");
+  const ficctionBooks = data.filter((book) => book.gender === "ficction");
+  const poetryBooks = data.filter((book) => book.gender === "poetry");
+  const romanceBooks = data.filter((book) => book.gender === "romance");
+  const saleBooks = data.filter((book) => book.sale === true);
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -46,16 +66,86 @@ const HorizontalTabs = () => {
           <Tab label="Sale" style={{ color: "#72887B" }} />
         </Tabs>
       </Box>
-      <Box >
-        <Typography>
-          {value === 0 && <Card src="https://m.media-amazon.com/images/I/71NsVQ5MlwL.jpg" title="Harry Potter e a Câmara Secreta" author="J.K Rowling" price={144.90} />}
-          {value === 1 && 'Conteúdo da Tab 2'}
-          {value === 2 && 'Conteúdo da Tab 3'}
-          {value === 3 && 'Conteúdo da Tab 4'}
-          {value === 4 && 'Conteúdo da Tab 5'}
-          {value === 5 && 'Conteúdo da Tab 6'}
-          {value === 6 && 'Conteúdo da Tab 7'}
-        </Typography>
+      <Box style={{ width: "100%", display: "flex", gap: "20px", flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+        {value === 0 &&
+          adventureBooks.map((book) => (
+            <CardContainer>
+              <Card
+                key={book.id}
+                src={book.img}
+                title={book.name}
+                author={book.author}
+                price={book.price}
+              />
+            </CardContainer>
+          ))
+        }
+        {value === 1 &&
+          biographyBooks.map((book) => (
+            <CardContainer>
+              <Card
+                key={book.id}
+                src={book.img}
+                title={book.name}
+                author={book.author}
+                price={book.price}
+              />
+            </CardContainer>
+          ))
+        }
+        {value === 2 &&
+          ficctionBooks.map((book) => (
+            <CardContainer>
+              <Card
+                key={book.id}
+                src={book.img}
+                title={book.name}
+                author={book.author}
+                price={book.price}
+              />
+            </CardContainer>
+          ))
+        }
+        {value === 3 &&
+          poetryBooks.map((book) => (
+            <CardContainer>
+              <Card
+                key={book.id}
+                src={book.img}
+                title={book.name}
+                author={book.author}
+                price={book.price}
+              />
+            </CardContainer>
+          ))
+        }
+        {value === 4 &&
+          romanceBooks.map((book) => (
+            <CardContainer>
+              <Card
+                key={book.id}
+                src={book.img}
+                title={book.name}
+                author={book.author}
+                price={book.price}
+              />
+            </CardContainer>
+          ))
+        }
+        {value === 5 &&
+          saleBooks.map((book) => (
+            <CardContainer>
+              <Card
+                key={book.id}
+                src={book.img}
+                title={book.name}
+                author={book.author}
+                price={book.price}
+              />
+            </CardContainer>
+          ))
+        }
+        {value === 6 && 'Conteúdo da Tab 7'}
       </Box>
     </>
   );

@@ -4,6 +4,10 @@ export const BookclubTheme = {
     white: "#FFFFFF",
     black: "#000000",
 
+    //red
+    red: "#F52D3A",
+    red200: "#DD9EA2",
+    
     // gray
     gray100: "#DCDCDC",
     gray200: "#939799",

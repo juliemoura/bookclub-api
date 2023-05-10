@@ -8,7 +8,7 @@ export const Container = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 0;
+  padding: 90px 0;
 
   @media (max-width: 768px) {
     height: 100%;
