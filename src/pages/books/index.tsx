@@ -1,71 +1,86 @@
 import { AllBooks } from "../../sections/allBooks";
 import { Navbar } from "../../components/navbar";
-import { Container } from "./styles";
+import { Container, InputExternal, SearchButton, SuperiorContent, Input } from "./styles";
+import { useEffect, useState } from "react";
+import { Loading } from "../../components/loading";
+import { Typography } from "@mui/material";
+import { BasicModal } from "../../components/modal";
+import { BiSearchAlt } from "react-icons/bi";
 
-const mock = [
-  {
-      id: 1,
-      img: "https://m.media-amazon.com/images/I/81jbivNEVML.jpg",
-      name: "Harry Potter e a Camara Filosofal",
-      author: "J.K Rowling",
-      price: 69.90,
-      gender: "adventure",
-      sale: false,
-  },
-  {
-      id: 2,
-      img: "https://upload.wikimedia.org/wikipedia/pt/thumb/c/c7/Maze_runner.jpg/250px-Maze_runner.jpg",
-      name: "Maze Runner - Correr ou Morrer",
-      author: "James Dashner",
-      price: 19.90,
-      gender: "ficction",
-      sale: true,
-  },
-  {
-      id: 3,
-      img: "https://a-static.mlcdn.com.br/1500x1500/livro-orgulho-e-preconceito/namastebooks/9800345886/060519930fae9dcacbc0f919164bbb1d.jpg",
-      name: "Orgulho e Preconceito",
-      author: "Jane Austen",
-      price: 49.90,
-      gender: "romance",
-      sale: false,
-  },
-  {
-      id: 4,
-      img: "https://m.media-amazon.com/images/I/91b0Lr-6RwL.jpg",
-      name: "Tudo Nela Brilha E Queima",
-      author: "Ryane Leão",
-      price: 9.90,
-      gender: "poetry",
-      sale: true,
-  },
-  {
-      id: 5,
-      img: "https://m.media-amazon.com/images/I/91tOJgXRfzL.jpg",
-      name: "Diário de Anne Frank",
-      author: "Anne Frank",
-      price: 49.90,
-      gender: "biography",
-      sale: false,
-  },
-  {
-      id: 6,
-      img: "https://m.media-amazon.com/images/I/91tOJgXRfzL.jpg",
-      name: "Diário de Anne Frank",
-      author: "Anne Frank",
-      price: 49.90,
-      gender: "biography",
-      sale: false,
-  },
-];
+interface IData {
+  urlImg: string;
+  idBook: number;
+  authorName: string;
+  bookName: string;
+  price: number;
+  gender?: string;
+  sale?: boolean;
+};
+
+type DataTypes = IData[];
 
 const Books = () => {
+  const [data, setData] = useState<DataTypes>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchedBooks, setSearchedBooks] = useState<DataTypes>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      fetch('https://localhost:7104/api/books')
+        .then(response => response.json())
+        .then(response => {
+          setData(response);
+          setIsLoading(false);
+          console.log(response);
+        })
+        .catch(error => {
+          console.error(error);
+          setIsLoading(false);
+        });
+    }, 1000);
+  }, []);
+
+  const searchBooks = () => {
+    const searchedBooks = data.filter((book) =>
+      book.bookName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSearchedBooks(searchedBooks);
+  };
+
   return (
     <Container>
       <Navbar />
-      <AllBooks data={mock} />
+      <SuperiorContent>
+        <Typography fontSize="21px" color="#000000" fontFamily="space grotesk">
+          All books
+        </Typography>
+        <InputExternal>
+          <Input
+            placeholder="Search a book"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <SearchButton onClick={searchBooks}>
+            <BiSearchAlt size={20} />
+          </SearchButton>
+        </InputExternal>
+        <BasicModal />
+      </SuperiorContent>
+      {isLoading ? (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "100px" }}>
+          <Loading />
+        </div>
+      ) : (
+        searchedBooks.length > 0 ? (
+          <AllBooks data={searchedBooks} />
+        ) : (
+          <AllBooks data={data} />
+        ))}
     </Container>
   );
 };
+
 
 export { Books };

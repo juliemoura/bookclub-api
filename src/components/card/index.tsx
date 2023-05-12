@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Container, InfoContent } from "./styles";
+import { Container, InfoContent, Button } from "./styles";
 import { Image } from "../../components/image";
 
 import { BiEditAlt } from "react-icons/bi";
@@ -29,12 +29,12 @@ const Card = ({ src, title, author, price, more = false }: CardTypes) => {
                 </Typography>
                 {more === true &&
                     <div style={{ display: "flex", gap: "10px" }}>
-                        <button>
+                        <Button>
                             <BiEditAlt size={20} />
-                        </button>
-                        <button>
+                        </Button>
+                        <Button>
                             <MdDelete size={20} />
-                        </button>
+                        </Button>
                     </div>
                 }
             </InfoContent>

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const Form = styled.form``;
+
 export const AddButton = styled.button`
   border: 1px solid ${({ theme }) => theme.colors.green300};
   background: none;
@@ -24,6 +26,10 @@ export const CancelButton = styled.button`
   &:hover {
     cursor: pointer;
     background: ${({ theme }) => theme.colors.red200};
-
   }
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 20px;
 `;

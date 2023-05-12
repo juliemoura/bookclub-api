@@ -4,9 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { RiAddCircleLine } from "react-icons/ri";
-import { MdClose } from "react-icons/md";
 import { Input } from "../input";
-import { AddButton, CancelButton } from "./styles";
+import { AddButton, ButtonsContainer, CancelButton, Form } from "./styles";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -20,9 +19,66 @@ const style = {
 };
 
 const BasicModal = () => {
+    interface Book {
+        urlImg: string;
+        bookName: string;
+        authorName: string;
+        price: number;
+        gender: string;
+        sale: boolean;
+    };
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [formData, setFormData] = React.useState<Book>({
+        urlImg: '',
+        bookName: '',
+        authorName: '',
+        price: 0,
+        gender: '',
+        sale: false
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('https://localhost:7104/api/books', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                alert("Livro adicionado com sucesso!")
+
+                // Limpar o formulário
+                setFormData({
+                    urlImg: '',
+                    bookName: '',
+                    authorName: '',
+                    price: 0,
+                    gender: '',
+                    sale: false
+                });
+            } else {
+                console.error('Erro ao adicionar o livro:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erro ao adicionar o livro:', error);
+        }
+    };
 
     return (
         <div>
@@ -39,20 +95,21 @@ const BasicModal = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2" fontFamily="space grotesk">
                         Add a new book
                     </Typography>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                        <Input label="Url Image" />
-                        <Input label="Title" />
-                        <Input label="Author" />
-                        <Input label="Price" />
-                    </div>
-                    <div style={{ display: "flex", gap: "20px" }}>
-                        <AddButton>
-                            Add
-                        </AddButton>
-                        <CancelButton onClick={handleClose}>
-                            Cancel
-                        </CancelButton>
-                    </div>
+                    <Form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                        <Input label="Url Image"  name="urlImg" value={formData.urlImg} onChange={handleChange} />
+                        <Input label="Title" name="bookName" value={formData.bookName} onChange={handleChange} />
+                        <Input label="Author" name="authorName" value={formData.authorName} onChange={handleChange} />
+                        <Input label="Price" name="price" value={formData.price} onChange={handleChange} />
+                        <Input label="Gender" name="gender" value={formData.gender} onChange={handleChange} />
+                        <ButtonsContainer>
+                            <AddButton type="submit">
+                                Add
+                            </AddButton>
+                            <CancelButton onClick={handleClose}>
+                                Cancel
+                            </CancelButton>
+                        </ButtonsContainer>
+                    </Form>
                 </Box>
             </Modal>
         </div>
