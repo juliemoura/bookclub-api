@@ -9,8 +9,8 @@ import {
   Typography,
 } from "./styles";
 
-import { BsList, BsPersonWorkspace } from "react-icons/bs";
-import { MdClose, MdHome } from "react-icons/md";
+import { BsList } from "react-icons/bs";
+import { MdClose } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 

@@ -15,8 +15,7 @@ const Cta = () => {
                         What book are you looking for?
                     </Typography>
                     <Typography variant="h4" component="h4" fontFamily="inter" color="#939393" fontSize="16px" fontWeight={500}>
-                        Not sure what to read next? Explore our catalog of public domain books with our editors.
-                    </Typography>
+                        Not sure what to read? Explore our book catalog with all the most famous publishers in the market.                    </Typography>
                     <Button>
                         <ButtonContent>Explore now</ButtonContent>
                         <LinkContainer to="/books">

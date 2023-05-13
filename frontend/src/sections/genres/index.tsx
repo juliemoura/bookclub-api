@@ -27,7 +27,6 @@ const Genres = () => {
                 .then(response => {
                     setData(response);
                     setIsLoading(false);
-                    console.log(response);
                 })
                 .catch(error => {
                     console.error(error);
@@ -39,7 +38,7 @@ const Genres = () => {
     return (
         <Container>
             <Typography variant="h2" fontFamily="space grotesk" fontSize="46px">
-                Browse Genres
+                Browse by gender
             </Typography>
             {isLoading ? (
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "100px" }}>

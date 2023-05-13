@@ -1,9 +1,6 @@
 import { Typography } from "@mui/material";
-import { Container, InfoContent, Button } from "./styles";
+import { Container, InfoContent } from "./styles";
 import { Image } from "../../components/image";
-
-import { BiEditAlt } from "react-icons/bi";
-import { MdDelete } from "react-icons/md";
 
 type CardTypes = {
     src: string;
@@ -13,7 +10,7 @@ type CardTypes = {
     more?: boolean;
 };
 
-const Card = ({ src, title, author, price, more = false }: CardTypes) => {
+const ExtraCard = ({ src, title, author, price}: CardTypes) => {
     return (
         <Container>
             <Image src={src} />
@@ -27,19 +24,10 @@ const Card = ({ src, title, author, price, more = false }: CardTypes) => {
                 <Typography fontSize="18px" color="#2C322F" fontFamily="inter">
                     R$ {price}
                 </Typography>
-                {more === true &&
-                    <div style={{ display: "flex", gap: "10px" }}>
-                        <Button>
-                            <BiEditAlt size={20} />
-                        </Button>
-                        <Button>
-                            <MdDelete size={20} />
-                        </Button>
-                    </div>
-                }
+
             </InfoContent>
         </Container>
     )
 };
 
-export { Card };
+export { ExtraCard };

@@ -18,20 +18,26 @@ const style = {
     p: 4,
 };
 
-const BasicModal = () => {
-    interface Book {
-        urlImg: string;
-        bookName: string;
-        authorName: string;
-        price: number;
-        gender: string;
-        sale: boolean;
-    };
+export interface Book {
+    idBook: number;
+    urlImg: string;
+    bookName: string;
+    authorName: string;
+    price: number;
+    gender: string;
+    sale: boolean;
+};
 
+interface BasicModalProps {
+    onAddBook: (newBook: Book) => void;
+  }
+
+const BasicModal = ({ onAddBook }: BasicModalProps) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [formData, setFormData] = React.useState<Book>({
+        idBook: 0,
         urlImg: '',
         bookName: '',
         authorName: '',
@@ -61,10 +67,13 @@ const BasicModal = () => {
             });
 
             if (response.ok) {
-                alert("Livro adicionado com sucesso!")
+                alert("Book successfully added")
+                const newBook = { ...formData };
+                onAddBook(newBook);
 
                 // Limpar o formulário
                 setFormData({
+                    idBook: 0,
                     urlImg: '',
                     bookName: '',
                     authorName: '',
@@ -72,12 +81,15 @@ const BasicModal = () => {
                     gender: '',
                     sale: false
                 });
+
             } else {
-                console.error('Erro ao adicionar o livro:', response.statusText);
+                alert("Error adding book")
             }
         } catch (error) {
-            console.error('Erro ao adicionar o livro:', error);
+            alert("Error adding book")
         }
+        handleClose();
+
     };
 
     return (
@@ -96,7 +108,7 @@ const BasicModal = () => {
                         Add a new book
                     </Typography>
                     <Form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                        <Input label="Url Image"  name="urlImg" value={formData.urlImg} onChange={handleChange} />
+                        <Input label="URL Image" name="urlImg" value={formData.urlImg} onChange={handleChange} />
                         <Input label="Title" name="bookName" value={formData.bookName} onChange={handleChange} />
                         <Input label="Author" name="authorName" value={formData.authorName} onChange={handleChange} />
                         <Input label="Price" name="price" value={formData.price} onChange={handleChange} />
