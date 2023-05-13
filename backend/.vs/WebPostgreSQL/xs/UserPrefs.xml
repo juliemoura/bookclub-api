@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{9D196583-537A-4FCD-AAE9-EEA2E481407E}|https">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.WebPostgreSQL PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebPostgreSQL/Models/Book.cs">
+    <Files>
+      <File FileName="WebPostgreSQL/Controllers/BooksController.cs" />
+      <File FileName="WebPostgreSQL/Models/Book.cs" Line="29" Column="39" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WebPostgreSQL" expanded="True" selected="True">
+            <Node name="WebPostgreSQL" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
