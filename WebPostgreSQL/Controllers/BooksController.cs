@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebPostgreSQL.Models;
 using WebPostgreSQL.Services;
 using static System.Reflection.Metadata.BlobBuilder;
+using OfficeOpenXml;
+using System.IO;
+using System.Linq;
 
 namespace WebPostgreSQL.Controllers
 {
@@ -135,6 +141,92 @@ namespace WebPostgreSQL.Controllers
             catch
             {
                 return BadRequest("Invalid Request");
+            }
+        }
+
+        // fazer download em xml
+        [HttpGet("download-all")]
+        public async Task<ActionResult> DownloadAllBooks()
+        {
+            try
+            {
+                var books = await _bookService.GetBooks();
+
+                // Criando um documento XML para representar tds os livros
+                var xmlDoc = new XDocument(new XElement("Books",
+                    books.Select(book => new XElement("Book",
+                        new XElement("Id", book.IdBook),
+                        new XElement("URL", book.UrlImg),
+                        new XElement("Name", book.BookName),
+                        new XElement("Author", book.AuthorName),
+                        new XElement("Price", book.Price),
+                        new XElement("Gender", book.Gender),
+                        new XElement("Sale", book.Sale)
+                    ))
+                ));
+
+                string fileName = "all_books.xml";
+
+                // Convertendo o documento XML para um array de bytes
+                byte[] xmlBytes = Encoding.UTF8.GetBytes(xmlDoc.ToString());
+
+                // Retornando o arquivo XML para download
+                return File(xmlBytes, "application/xml", fileName);
+            }
+            catch
+            {
+                return BadRequest("Invalid Request");
+            }
+        }
+
+        // fazer download em xlsx
+        [HttpGet("download-all-xlsx")]
+        public async Task<ActionResult> DownloadAllBooksXlsx()
+        {
+            try
+            {
+                var books = await _bookService.GetBooks();
+
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Books");
+
+                    // Definindo os cabeçalhos
+                    worksheet.Cells[1, 1].Value = "Id";
+                    worksheet.Cells[1, 2].Value = "URL";
+                    worksheet.Cells[1, 3].Value = "Name";
+                    worksheet.Cells[1, 4].Value = "Author";
+                    worksheet.Cells[1, 5].Value = "Price";
+                    worksheet.Cells[1, 6].Value = "Gender";
+                    worksheet.Cells[1, 7].Value = "Sale";
+
+                    // Dados dos livros
+                    int row = 2;
+                    foreach (var book in books)
+                    {
+                        worksheet.Cells[row, 1].Value = book.IdBook;
+                        worksheet.Cells[row, 2].Value = book.UrlImg;
+                        worksheet.Cells[row, 3].Value = book.BookName;
+                        worksheet.Cells[row, 4].Value = book.AuthorName;
+                        worksheet.Cells[row, 5].Value = book.Price;
+                        worksheet.Cells[row, 6].Value = book.Gender;
+                        worksheet.Cells[row, 7].Value = book.Sale;
+
+                        row++;
+                    }
+
+                    // Convertendo o arquivo Excel para um array de bytes
+                    byte[] excelBytes = package.GetAsByteArray();
+
+                    string fileName = "all_books.xlsx";
+
+                    // Retornando o arquivo XLSX para download
+                    return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
         }
     }

@@ -28,6 +28,9 @@ namespace WebPostgreSQL.Models
         [Display(Name = "Em promoção")]
         public bool Sale { get; set; }
 
+        //[Display(Name = "Ano")]
+        //public int Year { get; set; }
+
         public Book()
         {
             UrlImg = string.Empty;
