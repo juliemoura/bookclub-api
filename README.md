@@ -17,7 +17,7 @@ Recursos e funcionalidades principais:
 
 Frontend em React: O frontend (https://github.com/juliemoura/bookclub) foi desenvolvido utilizando a biblioteca React com TypeScript, proporcionando uma interface de usuário interativa e responsiva. Foram utilizados componentes reutilizáveis e uma arquitetura bem organizada para facilitar o desenvolvimento e manutenção do código.
 
-Backend em .NET: O backend foi construído utilizando o framework .NET, aproveitando o poder e a segurança da linguagem C#. Foram implementadas APIs RESTful para lidar com as requisições do frontend, permitindo o cadastro, atualização, exclusão e busca de livros. A autenticação e autorização também foram implementadas para garantir a segurança do sistema.
+Backend em .NET: O backend foi construído utilizando o framework .NET, aproveitando o poder e a segurança da linguagem C#. Foram implementadas APIs RESTful para lidar com as requisições do frontend, permitindo o cadastro, atualização, exclusão e busca de livros.
 
 Banco de dados PostgreSQL: O banco de dados PostgreSQL foi escolhido como o sistema de gerenciamento de banco de dados, oferecendo uma estrutura robusta e confiável para armazenar os dados dos livros, autores, preços, etc. Foram criadas tabelas adequadas para armazenar as informações dos livros e estabelecidas relações entre elas.
 
@@ -26,7 +26,7 @@ Funcionalidades do sistema:
 Cadastro de livros: Os usuários podem cadastrar novos livros, fornecendo informações como título, autor, gênero, preço, etc.
 Edição e exclusão de livros: Os usuários têm a capacidade de editar e excluir os livros cadastrados anteriormente.
 Busca de livros: O sistema oferece recursos de busca, permitindo que os usuários encontrem livros com base em critérios como título, autor, gênero, etc.
-Visualização de informações detalhadas: Os usuários podem visualizar informações detalhadas sobre cada livro, incluindo sua capa, sinopse e outras informações relevantes.
+Visualização de informações detalhadas: Os usuários podem visualizar informações detalhadas sobre cada livro, incluindo sua capa e outras informações relevantes.
 
 ## Instalação
 
