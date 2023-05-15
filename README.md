@@ -26,7 +26,6 @@ Funcionalidades do sistema:
 Cadastro de livros: Os usuários podem cadastrar novos livros, fornecendo informações como título, autor, gênero, preço, etc.
 Edição e exclusão de livros: Os usuários têm a capacidade de editar e excluir os livros cadastrados anteriormente.
 Busca de livros: O sistema oferece recursos de busca, permitindo que os usuários encontrem livros com base em critérios como título, autor, gênero, etc.
-Autenticação e autorização: Foi implementado um sistema de login para controlar o acesso ao sistema, permitindo que apenas usuários autenticados possam realizar operações de cadastro, edição, exclusão, etc.
 Visualização de informações detalhadas: Os usuários podem visualizar informações detalhadas sobre cada livro, incluindo sua capa, sinopse e outras informações relevantes.
 
 ## Instalação
